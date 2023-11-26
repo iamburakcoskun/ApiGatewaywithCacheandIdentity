@@ -26,9 +26,13 @@ namespace MyOcelot.Services.Weather.Api
 
             var authenticationProviderKey = "MyOcelot";
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
-                 {
+            services.AddAuthentication(option =>
+            {
+                option.DefaultAuthenticateScheme = authenticationProviderKey;
+                option.DefaultChallengeScheme = authenticationProviderKey;
+            })
+               .AddJwtBearer(authenticationProviderKey, options =>
+               {
                      options.RequireHttpsMetadata = false;
                      options.SaveToken = true;
 
